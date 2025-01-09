@@ -7,7 +7,7 @@ build = "build.rs"
 [dependencies]
 prost = "0.13.4"
 prost-types = "0.13.4"
-tonic = { version = "0.12.3", default-features = false, features = ["codegen", "transport", "prost"]}
+tonic = { version = "0.12.3", default-features = false }
 tokio = { version = "1.43.0", features = ["macros"] }
 
 [dependencies.tonic-web-wasm-client]
@@ -16,7 +16,7 @@ optional = true
 
 [features]
 default = ["desktop"]
-desktop = []
+desktop = ["tonic/codegen", "tonic/transport", "tonic/prost"]
 web = ["tonic-web-wasm-client"]
 
 [build-dependencies]
