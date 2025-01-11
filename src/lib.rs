@@ -1,3 +1,4 @@
+#[cfg(feature = "web")]
+pub mod web;
 #[cfg(feature = "desktop")]
-pub mod manager;
-pub mod stream;
+pub mod desktop;

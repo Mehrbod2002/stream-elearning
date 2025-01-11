@@ -1,10 +1,10 @@
-use crate::stream::stream_service_client::StreamServiceClient;
+use crate::desktop::stream::stream_a_service_client::StreamAServiceClient;
 use std::sync::{Arc, Mutex};
 use tokio::time::{sleep, Duration};
 use tonic::transport::{Channel, Error};
 
 pub struct GrpcConnectionManager {
-    client: Arc<Mutex<Option<StreamServiceClient<Channel>>>>,
+    client: Arc<Mutex<Option<StreamAServiceClient<Channel>>>>,
     endpoint: String,
 }
 
@@ -17,14 +17,14 @@ impl GrpcConnectionManager {
     }
 
     pub async fn connect(&self) -> Result<(), Error> {
-        let client = StreamServiceClient::connect(self.endpoint.clone()).await?;
+        let client = StreamAServiceClient::connect(self.endpoint.clone()).await?;
         let mut client_lock = self.client.lock().unwrap();
         *client_lock = Some(client);
 
         Ok(())
     }
 
-    pub async fn get_client(&self) -> Result<StreamServiceClient<Channel>, Error> {
+    pub async fn get_client(&self) -> Result<StreamAServiceClient<Channel>, Error> {
         let client_option = {
             let client_lock = self.client.lock().unwrap();
             client_lock.clone()

@@ -6,7 +6,7 @@ import "google/protobuf/timestamp.proto";
 
 option go_package = "rpc/stream";
 
-service StreamService {
+service StreamAService {
   rpc ReceiveUpdates(SubscribeRequest) returns (stream Subscribe);
 
   rpc Send(ChatMessage) returns (SendResponse);
