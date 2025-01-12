@@ -7,7 +7,7 @@ pub fn encode_request(protobuf_message: &[u8]) -> Vec<u8> {
     body
 }
 
-pub fn decode_reques(data: &[u8]) -> Result<Vec<u8>, String> {
+pub fn decode_request(data: &[u8]) -> Result<Vec<u8>, String> {
     if data.is_empty() {
         return Err("Empty gRPC-Web response".to_string());
     }
