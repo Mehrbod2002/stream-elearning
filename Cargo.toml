@@ -11,7 +11,7 @@ tonic = { version = "0.12.3", optional = true }
 tokio = { version = "1.43.0", features = ["macros"], optional = true} 
 
 [features]
-default = ["desktop"]
+default = ["web"]
 desktop = ["tonic", "tokio", "tonic-build"]
 web = ["prost-build"]
 
