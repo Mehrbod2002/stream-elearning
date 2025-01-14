@@ -114,7 +114,7 @@ pub struct Question {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Subscribe {
     #[prost(string, tag = "5")]
-    pub chat_romm: ::prost::alloc::string::String,
+    pub chat_room: ::prost::alloc::string::String,
     #[prost(string, tag = "6")]
     pub username: ::prost::alloc::string::String,
     #[prost(oneof = "subscribe::Data", tags = "1, 2, 3, 4")]
@@ -142,7 +142,7 @@ pub struct SubscribeRequest {
     pub username: ::prost::alloc::string::String,
 }
 /// Generated client implementations.
-pub mod stream_a_service_client {
+pub mod stream_service_client {
     #![allow(
         unused_variables,
         dead_code,
@@ -153,10 +153,10 @@ pub mod stream_a_service_client {
     use tonic::codegen::*;
     use tonic::codegen::http::Uri;
     #[derive(Debug, Clone)]
-    pub struct StreamAServiceClient<T> {
+    pub struct StreamServiceClient<T> {
         inner: tonic::client::Grpc<T>,
     }
-    impl StreamAServiceClient<tonic::transport::Channel> {
+    impl StreamServiceClient<tonic::transport::Channel> {
         /// Attempt to create a new client by connecting to a given endpoint.
         pub async fn connect<D>(dst: D) -> Result<Self, tonic::transport::Error>
         where
@@ -167,7 +167,7 @@ pub mod stream_a_service_client {
             Ok(Self::new(conn))
         }
     }
-    impl<T> StreamAServiceClient<T>
+    impl<T> StreamServiceClient<T>
     where
         T: tonic::client::GrpcService<tonic::body::BoxBody>,
         T::Error: Into<StdError>,
@@ -185,7 +185,7 @@ pub mod stream_a_service_client {
         pub fn with_interceptor<F>(
             inner: T,
             interceptor: F,
-        ) -> StreamAServiceClient<InterceptedService<T, F>>
+        ) -> StreamServiceClient<InterceptedService<T, F>>
         where
             F: tonic::service::Interceptor,
             T::ResponseBody: Default,
@@ -199,7 +199,7 @@ pub mod stream_a_service_client {
                 http::Request<tonic::body::BoxBody>,
             >>::Error: Into<StdError> + std::marker::Send + std::marker::Sync,
         {
-            StreamAServiceClient::new(InterceptedService::new(inner, interceptor))
+            StreamServiceClient::new(InterceptedService::new(inner, interceptor))
         }
         /// Compress requests with the given encoding.
         ///
@@ -249,11 +249,11 @@ pub mod stream_a_service_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/stream.StreamAService/ReceiveUpdates",
+                "/stream.StreamService/ReceiveUpdates",
             );
             let mut req = request.into_request();
             req.extensions_mut()
-                .insert(GrpcMethod::new("stream.StreamAService", "ReceiveUpdates"));
+                .insert(GrpcMethod::new("stream.StreamService", "ReceiveUpdates"));
             self.inner.server_streaming(req, path, codec).await
         }
         pub async fn send(
@@ -270,11 +270,10 @@ pub mod stream_a_service_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/stream.StreamAService/Send",
+                "/stream.StreamService/Send",
             );
             let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(GrpcMethod::new("stream.StreamAService", "Send"));
+            req.extensions_mut().insert(GrpcMethod::new("stream.StreamService", "Send"));
             self.inner.unary(req, path, codec).await
         }
         pub async fn send_question(
@@ -291,11 +290,11 @@ pub mod stream_a_service_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/stream.StreamAService/SendQuestion",
+                "/stream.StreamService/SendQuestion",
             );
             let mut req = request.into_request();
             req.extensions_mut()
-                .insert(GrpcMethod::new("stream.StreamAService", "SendQuestion"));
+                .insert(GrpcMethod::new("stream.StreamService", "SendQuestion"));
             self.inner.unary(req, path, codec).await
         }
         pub async fn window_paint(
@@ -312,11 +311,11 @@ pub mod stream_a_service_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/stream.StreamAService/WindowPaint",
+                "/stream.StreamService/WindowPaint",
             );
             let mut req = request.into_request();
             req.extensions_mut()
-                .insert(GrpcMethod::new("stream.StreamAService", "WindowPaint"));
+                .insert(GrpcMethod::new("stream.StreamService", "WindowPaint"));
             self.inner.unary(req, path, codec).await
         }
         pub async fn window_paint_init(
@@ -333,17 +332,17 @@ pub mod stream_a_service_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/stream.StreamAService/WindowPaintInit",
+                "/stream.StreamService/WindowPaintInit",
             );
             let mut req = request.into_request();
             req.extensions_mut()
-                .insert(GrpcMethod::new("stream.StreamAService", "WindowPaintInit"));
+                .insert(GrpcMethod::new("stream.StreamService", "WindowPaintInit"));
             self.inner.unary(req, path, codec).await
         }
     }
 }
 /// Generated server implementations.
-pub mod stream_a_service_server {
+pub mod stream_service_server {
     #![allow(
         unused_variables,
         dead_code,
@@ -352,9 +351,9 @@ pub mod stream_a_service_server {
         clippy::let_unit_value,
     )]
     use tonic::codegen::*;
-    /// Generated trait containing gRPC methods that should be implemented for use with StreamAServiceServer.
+    /// Generated trait containing gRPC methods that should be implemented for use with StreamServiceServer.
     #[async_trait]
-    pub trait StreamAService: std::marker::Send + std::marker::Sync + 'static {
+    pub trait StreamService: std::marker::Send + std::marker::Sync + 'static {
         /// Server streaming response type for the ReceiveUpdates method.
         type ReceiveUpdatesStream: tonic::codegen::tokio_stream::Stream<
                 Item = std::result::Result<super::Subscribe, tonic::Status>,
@@ -386,14 +385,14 @@ pub mod stream_a_service_server {
         ) -> std::result::Result<tonic::Response<super::SendResponse>, tonic::Status>;
     }
     #[derive(Debug)]
-    pub struct StreamAServiceServer<T> {
+    pub struct StreamServiceServer<T> {
         inner: Arc<T>,
         accept_compression_encodings: EnabledCompressionEncodings,
         send_compression_encodings: EnabledCompressionEncodings,
         max_decoding_message_size: Option<usize>,
         max_encoding_message_size: Option<usize>,
     }
-    impl<T> StreamAServiceServer<T> {
+    impl<T> StreamServiceServer<T> {
         pub fn new(inner: T) -> Self {
             Self::from_arc(Arc::new(inner))
         }
@@ -444,9 +443,9 @@ pub mod stream_a_service_server {
             self
         }
     }
-    impl<T, B> tonic::codegen::Service<http::Request<B>> for StreamAServiceServer<T>
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for StreamServiceServer<T>
     where
-        T: StreamAService,
+        T: StreamService,
         B: Body + std::marker::Send + 'static,
         B::Error: Into<StdError> + std::marker::Send + 'static,
     {
@@ -461,11 +460,11 @@ pub mod stream_a_service_server {
         }
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
             match req.uri().path() {
-                "/stream.StreamAService/ReceiveUpdates" => {
+                "/stream.StreamService/ReceiveUpdates" => {
                     #[allow(non_camel_case_types)]
-                    struct ReceiveUpdatesSvc<T: StreamAService>(pub Arc<T>);
+                    struct ReceiveUpdatesSvc<T: StreamService>(pub Arc<T>);
                     impl<
-                        T: StreamAService,
+                        T: StreamService,
                     > tonic::server::ServerStreamingService<super::SubscribeRequest>
                     for ReceiveUpdatesSvc<T> {
                         type Response = super::Subscribe;
@@ -480,8 +479,7 @@ pub mod stream_a_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                <T as StreamAService>::receive_updates(&inner, request)
-                                    .await
+                                <T as StreamService>::receive_updates(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -508,11 +506,11 @@ pub mod stream_a_service_server {
                     };
                     Box::pin(fut)
                 }
-                "/stream.StreamAService/Send" => {
+                "/stream.StreamService/Send" => {
                     #[allow(non_camel_case_types)]
-                    struct SendSvc<T: StreamAService>(pub Arc<T>);
+                    struct SendSvc<T: StreamService>(pub Arc<T>);
                     impl<
-                        T: StreamAService,
+                        T: StreamService,
                     > tonic::server::UnaryService<super::ChatMessage> for SendSvc<T> {
                         type Response = super::SendResponse;
                         type Future = BoxFuture<
@@ -525,7 +523,7 @@ pub mod stream_a_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                <T as StreamAService>::send(&inner, request).await
+                                <T as StreamService>::send(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -552,10 +550,10 @@ pub mod stream_a_service_server {
                     };
                     Box::pin(fut)
                 }
-                "/stream.StreamAService/SendQuestion" => {
+                "/stream.StreamService/SendQuestion" => {
                     #[allow(non_camel_case_types)]
-                    struct SendQuestionSvc<T: StreamAService>(pub Arc<T>);
-                    impl<T: StreamAService> tonic::server::UnaryService<super::Question>
+                    struct SendQuestionSvc<T: StreamService>(pub Arc<T>);
+                    impl<T: StreamService> tonic::server::UnaryService<super::Question>
                     for SendQuestionSvc<T> {
                         type Response = super::SendResponse;
                         type Future = BoxFuture<
@@ -568,7 +566,7 @@ pub mod stream_a_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                <T as StreamAService>::send_question(&inner, request).await
+                                <T as StreamService>::send_question(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -595,12 +593,10 @@ pub mod stream_a_service_server {
                     };
                     Box::pin(fut)
                 }
-                "/stream.StreamAService/WindowPaint" => {
+                "/stream.StreamService/WindowPaint" => {
                     #[allow(non_camel_case_types)]
-                    struct WindowPaintSvc<T: StreamAService>(pub Arc<T>);
-                    impl<
-                        T: StreamAService,
-                    > tonic::server::UnaryService<super::PaintEvent>
+                    struct WindowPaintSvc<T: StreamService>(pub Arc<T>);
+                    impl<T: StreamService> tonic::server::UnaryService<super::PaintEvent>
                     for WindowPaintSvc<T> {
                         type Response = super::SendResponse;
                         type Future = BoxFuture<
@@ -613,7 +609,7 @@ pub mod stream_a_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                <T as StreamAService>::window_paint(&inner, request).await
+                                <T as StreamService>::window_paint(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -640,11 +636,11 @@ pub mod stream_a_service_server {
                     };
                     Box::pin(fut)
                 }
-                "/stream.StreamAService/WindowPaintInit" => {
+                "/stream.StreamService/WindowPaintInit" => {
                     #[allow(non_camel_case_types)]
-                    struct WindowPaintInitSvc<T: StreamAService>(pub Arc<T>);
+                    struct WindowPaintInitSvc<T: StreamService>(pub Arc<T>);
                     impl<
-                        T: StreamAService,
+                        T: StreamService,
                     > tonic::server::UnaryService<super::PaintEventInit>
                     for WindowPaintInitSvc<T> {
                         type Response = super::SendResponse;
@@ -658,7 +654,7 @@ pub mod stream_a_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                <T as StreamAService>::window_paint_init(&inner, request)
+                                <T as StreamService>::window_paint_init(&inner, request)
                                     .await
                             };
                             Box::pin(fut)
@@ -706,7 +702,7 @@ pub mod stream_a_service_server {
             }
         }
     }
-    impl<T> Clone for StreamAServiceServer<T> {
+    impl<T> Clone for StreamServiceServer<T> {
         fn clone(&self) -> Self {
             let inner = self.inner.clone();
             Self {
@@ -719,8 +715,8 @@ pub mod stream_a_service_server {
         }
     }
     /// Generated gRPC service name
-    pub const SERVICE_NAME: &str = "stream.StreamAService";
-    impl<T> tonic::server::NamedService for StreamAServiceServer<T> {
+    pub const SERVICE_NAME: &str = "stream.StreamService";
+    impl<T> tonic::server::NamedService for StreamServiceServer<T> {
         const NAME: &'static str = SERVICE_NAME;
     }
 }

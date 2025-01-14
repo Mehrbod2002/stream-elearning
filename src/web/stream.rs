@@ -114,7 +114,7 @@ pub struct Question {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Subscribe {
     #[prost(string, tag = "5")]
-    pub chat_romm: ::prost::alloc::string::String,
+    pub chat_room: ::prost::alloc::string::String,
     #[prost(string, tag = "6")]
     pub username: ::prost::alloc::string::String,
     #[prost(oneof = "subscribe::Data", tags = "1, 2, 3, 4")]
