@@ -6,7 +6,7 @@ import "google/protobuf/timestamp.proto";
 
 option go_package = "rpc/stream";
 
-service StreamAService {
+service StreamService {
   rpc ReceiveUpdates(SubscribeRequest) returns (stream Subscribe);
 
   rpc Send(ChatMessage) returns (SendResponse);
@@ -102,7 +102,7 @@ message Subscribe {
     Question question = 3;
     PaintEventInit paint_event_init = 4;
   }
-  string chat_romm = 5;
+  string chat_room = 5;
   string username = 6;
 }
 
