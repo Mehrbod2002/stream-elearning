@@ -26,6 +26,7 @@ message PaintEventInit {
 message StreamVertex {
   repeated float position = 1;
   repeated float color = 2;
+  string id = 3;
 }
 
 message StreamRect {
@@ -38,16 +39,18 @@ message StreamRect {
 message StreamTextEntries {
   repeated float position = 1;
   repeated float color = 2;  
-  string text = 7;
-  bool pending = 8;
-  StreamRect bounds = 9;
-  int32 font_size = 10;
+  string text = 3;
+  bool pending = 4;
+  StreamRect bounds = 5;
+  int32 font_size = 6;
+  string id = 7;
 }
 
 message StreamRectangle {
   repeated float first = 1;
   repeated float last = 2;
   repeated float color = 3;
+  string id = 4;
 }
 
 message StreamAction {
@@ -84,9 +87,13 @@ message ChatMessage {
 }
 
 message PaintEvent {
-  repeated StreamActions actions = 1;
-  string chat_room = 2;
-  google.protobuf.Timestamp timestamp = 3;
+  oneof action_type {
+    bool is_deleted = 1;
+    bool action_request = 2;
+  };
+  repeated StreamActions actions = 3;
+  string chat_room = 4;
+  google.protobuf.Timestamp timestamp = 5;
 }
 
 message Question {

@@ -12,6 +12,8 @@ pub struct StreamVertex {
     pub position: ::prost::alloc::vec::Vec<f32>,
     #[prost(float, repeated, tag = "2")]
     pub color: ::prost::alloc::vec::Vec<f32>,
+    #[prost(string, tag = "3")]
+    pub id: ::prost::alloc::string::String,
 }
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct StreamRect {
@@ -30,14 +32,16 @@ pub struct StreamTextEntries {
     pub position: ::prost::alloc::vec::Vec<f32>,
     #[prost(float, repeated, tag = "2")]
     pub color: ::prost::alloc::vec::Vec<f32>,
-    #[prost(string, tag = "7")]
+    #[prost(string, tag = "3")]
     pub text: ::prost::alloc::string::String,
-    #[prost(bool, tag = "8")]
+    #[prost(bool, tag = "4")]
     pub pending: bool,
-    #[prost(message, optional, tag = "9")]
+    #[prost(message, optional, tag = "5")]
     pub bounds: ::core::option::Option<StreamRect>,
-    #[prost(int32, tag = "10")]
+    #[prost(int32, tag = "6")]
     pub font_size: i32,
+    #[prost(string, tag = "7")]
+    pub id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct StreamRectangle {
@@ -47,6 +51,8 @@ pub struct StreamRectangle {
     pub last: ::prost::alloc::vec::Vec<f32>,
     #[prost(float, repeated, tag = "3")]
     pub color: ::prost::alloc::vec::Vec<f32>,
+    #[prost(string, tag = "4")]
+    pub id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct StreamAction {
@@ -95,12 +101,24 @@ pub struct ChatMessage {
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PaintEvent {
-    #[prost(message, repeated, tag = "1")]
+    #[prost(message, repeated, tag = "3")]
     pub actions: ::prost::alloc::vec::Vec<StreamActions>,
-    #[prost(string, tag = "2")]
+    #[prost(string, tag = "4")]
     pub chat_room: ::prost::alloc::string::String,
-    #[prost(message, optional, tag = "3")]
+    #[prost(message, optional, tag = "5")]
     pub timestamp: ::core::option::Option<::prost_types::Timestamp>,
+    #[prost(oneof = "paint_event::ActionType", tags = "1, 2")]
+    pub action_type: ::core::option::Option<paint_event::ActionType>,
+}
+/// Nested message and enum types in `PaintEvent`.
+pub mod paint_event {
+    #[derive(Clone, Copy, PartialEq, ::prost::Oneof)]
+    pub enum ActionType {
+        #[prost(bool, tag = "1")]
+        IsDeleted(bool),
+        #[prost(bool, tag = "2")]
+        ActionRequest(bool),
+    }
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Question {
