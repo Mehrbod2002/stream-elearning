@@ -26,7 +26,6 @@ message PaintEventInit {
 message StreamVertex {
   repeated float position = 1;
   repeated float color = 2;
-  string id = 3;
 }
 
 message StreamRect {
@@ -43,20 +42,19 @@ message StreamTextEntries {
   bool pending = 4;
   StreamRect bounds = 5;
   int32 font_size = 6;
-  string id = 7;
 }
 
 message StreamRectangle {
   repeated float first = 1;
   repeated float last = 2;
   repeated float color = 3;
-  string id = 4;
 }
 
 message StreamAction {
-  repeated StreamVertex vertices = 1;
-  StreamTextEntries text = 2;
-  StreamRectangle rectangle = 3;
+  string id = 1;
+  repeated StreamVertex vertices = 2;
+  StreamTextEntries text = 3;
+  StreamRectangle rectangle = 4;
 }
 
 message StreamActions {

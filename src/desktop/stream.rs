@@ -12,8 +12,6 @@ pub struct StreamVertex {
     pub position: ::prost::alloc::vec::Vec<f32>,
     #[prost(float, repeated, tag = "2")]
     pub color: ::prost::alloc::vec::Vec<f32>,
-    #[prost(string, tag = "3")]
-    pub id: ::prost::alloc::string::String,
 }
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct StreamRect {
@@ -40,8 +38,6 @@ pub struct StreamTextEntries {
     pub bounds: ::core::option::Option<StreamRect>,
     #[prost(int32, tag = "6")]
     pub font_size: i32,
-    #[prost(string, tag = "7")]
-    pub id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct StreamRectangle {
@@ -51,16 +47,16 @@ pub struct StreamRectangle {
     pub last: ::prost::alloc::vec::Vec<f32>,
     #[prost(float, repeated, tag = "3")]
     pub color: ::prost::alloc::vec::Vec<f32>,
-    #[prost(string, tag = "4")]
-    pub id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct StreamAction {
-    #[prost(message, repeated, tag = "1")]
+    #[prost(string, tag = "1")]
+    pub id: ::prost::alloc::string::String,
+    #[prost(message, repeated, tag = "2")]
     pub vertices: ::prost::alloc::vec::Vec<StreamVertex>,
-    #[prost(message, optional, tag = "2")]
-    pub text: ::core::option::Option<StreamTextEntries>,
     #[prost(message, optional, tag = "3")]
+    pub text: ::core::option::Option<StreamTextEntries>,
+    #[prost(message, optional, tag = "4")]
     pub rectangle: ::core::option::Option<StreamRectangle>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
