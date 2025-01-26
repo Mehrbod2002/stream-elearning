@@ -92,8 +92,8 @@ pub struct ChatMessage {
     pub username: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
     pub message: ::prost::alloc::string::String,
-    #[prost(int64, tag = "4")]
-    pub timestamp: i64,
+    #[prost(message, optional, tag = "4")]
+    pub timestamp: ::core::option::Option<::prost_types::Timestamp>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PaintEvent {
@@ -124,6 +124,8 @@ pub struct Question {
     pub text: ::prost::alloc::string::String,
     #[prost(string, repeated, tag = "3")]
     pub answers: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(message, optional, tag = "4")]
+    pub timestamp: ::core::option::Option<::prost_types::Timestamp>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Subscribe {
