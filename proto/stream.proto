@@ -13,6 +13,8 @@ service StreamService {
 
   rpc SendQuestion(Question) returns (SendResponse);
 
+  rpc SendAssignment(Assignment) returns (SendResponse);
+
   rpc WindowPaint(PaintEvent) returns (SendResponse);
 
   rpc WindowPaintInit(PaintEventInit) returns (SendResponse);
