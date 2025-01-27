@@ -27,9 +27,13 @@ pub struct StreamRect {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Assignment {
     #[prost(string, tag = "1")]
-    pub question: ::prost::alloc::string::String,
+    pub id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
+    pub question: ::prost::alloc::string::String,
+    #[prost(string, tag = "3")]
     pub chat_room: ::prost::alloc::string::String,
+    #[prost(bool, tag = "4")]
+    pub deleted: bool,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct StreamTextEntries {
@@ -94,12 +98,16 @@ pub struct SendResponse {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ChatMessage {
     #[prost(string, tag = "1")]
-    pub chat_room: ::prost::alloc::string::String,
+    pub id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
-    pub username: ::prost::alloc::string::String,
+    pub chat_room: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
+    pub username: ::prost::alloc::string::String,
+    #[prost(string, tag = "4")]
     pub message: ::prost::alloc::string::String,
-    #[prost(message, optional, tag = "4")]
+    #[prost(bool, tag = "5")]
+    pub deleted: bool,
+    #[prost(message, optional, tag = "6")]
     pub timestamp: ::core::option::Option<::prost_types::Timestamp>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -126,12 +134,16 @@ pub mod paint_event {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Question {
     #[prost(string, tag = "1")]
-    pub chat_room: ::prost::alloc::string::String,
+    pub id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
+    pub chat_room: ::prost::alloc::string::String,
+    #[prost(string, tag = "3")]
     pub text: ::prost::alloc::string::String,
-    #[prost(string, repeated, tag = "3")]
+    #[prost(string, repeated, tag = "4")]
     pub answers: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    #[prost(message, optional, tag = "4")]
+    #[prost(bool, tag = "5")]
+    pub deleted: bool,
+    #[prost(message, optional, tag = "6")]
     pub timestamp: ::core::option::Option<::prost_types::Timestamp>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
