@@ -35,6 +35,11 @@ message StreamRect {
   float height = 4;
 }
 
+message Assignment {
+  string question = 1;
+  string chat_room = 2;
+}
+
 message StreamTextEntries {
   repeated float position = 1;
   repeated float color = 2;  
@@ -107,9 +112,10 @@ message Subscribe {
     PaintEvent paint_event = 2;
     Question question = 3;
     PaintEventInit paint_event_init = 4;
+    Assignment assignment = 5;
   }
-  string chat_room = 5;
-  string username = 6;
+  string chat_room = 6;
+  string username = 7;
 }
 
 message SubscribeRequest {

@@ -25,6 +25,13 @@ pub struct StreamRect {
     pub height: f32,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Assignment {
+    #[prost(string, tag = "1")]
+    pub question: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub chat_room: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct StreamTextEntries {
     #[prost(float, repeated, tag = "1")]
     pub position: ::prost::alloc::vec::Vec<f32>,
@@ -129,11 +136,11 @@ pub struct Question {
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Subscribe {
-    #[prost(string, tag = "5")]
-    pub chat_room: ::prost::alloc::string::String,
     #[prost(string, tag = "6")]
+    pub chat_room: ::prost::alloc::string::String,
+    #[prost(string, tag = "7")]
     pub username: ::prost::alloc::string::String,
-    #[prost(oneof = "subscribe::Data", tags = "1, 2, 3, 4")]
+    #[prost(oneof = "subscribe::Data", tags = "1, 2, 3, 4, 5")]
     pub data: ::core::option::Option<subscribe::Data>,
 }
 /// Nested message and enum types in `Subscribe`.
@@ -148,6 +155,8 @@ pub mod subscribe {
         Question(super::Question),
         #[prost(message, tag = "4")]
         PaintEventInit(super::PaintEventInit),
+        #[prost(message, tag = "5")]
+        Assignment(super::Assignment),
     }
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
