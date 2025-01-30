@@ -11,13 +11,54 @@ service StreamService {
 
   rpc Send(ChatMessage) returns (SendResponse);
 
+  rpc Register(AuthRequest) returns (SendResponse);
+
+  rpc OtpValidate(AuthRequestOtp) returns (User);
+  
+  rpc Login(AuthRequest) returns (SendResponse);
+
   rpc SendQuestion(Question) returns (SendResponse);
 
   rpc SendAssignment(Assignment) returns (SendResponse);
 
+  rpc CreateRoom(Room) returns (SendResponse);
+
+  rpc RoomCheck(Room) returns (SendResponse);
+
   rpc WindowPaint(PaintEvent) returns (SendResponse);
 
   rpc WindowPaintInit(PaintEventInit) returns (SendResponse);
+
+  rpc ValidateAuth(Validator) returns (User);
+}
+
+message Validator {
+  string token = 1;
+}
+
+message OTP {
+  float otp = 1;
+}
+
+message AuthRequest {
+  string phone = 1;
+}
+
+message AuthRequestOtp {
+  string phone = 1;
+  float otp = 2;
+}
+
+message User {
+  string phone = 1;
+  bool teach = 2;
+  float code = 3;
+  string username = 4;
+  google.protobuf.Timestamp create_at = 5;
+}
+
+message Room {
+  string chat_room = 1;
 }
 
 message PaintEventInit {
