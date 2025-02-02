@@ -3,8 +3,13 @@ syntax = "proto3";
 package stream;
 
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/descriptor.proto";
 
 option go_package = "rpc/stream";
+
+extend google.protobuf.FieldOptions {
+  string cql = 50001;
+}
 
 service StreamService {
   rpc ReceiveUpdates(SubscribeRequest) returns (stream Subscribe);
@@ -13,7 +18,7 @@ service StreamService {
 
   rpc Register(AuthRequest) returns (SendResponse);
 
-  rpc OtpValidate(AuthRequestOtp) returns (User);
+  rpc OtpValidate(AuthRequestOtp) returns (AuthOTPRequest);
   
   rpc Login(AuthRequest) returns (SendResponse);
 
@@ -21,15 +26,26 @@ service StreamService {
 
   rpc SendAssignment(Assignment) returns (SendResponse);
 
-  rpc CreateRoom(Room) returns (SendResponse);
+  rpc CreateRoom(Empty) returns (SendResponse);
 
-  rpc RoomCheck(Room) returns (SendResponse);
+  rpc RoomCheck(RoomCheckRequest) returns (Room);
 
   rpc WindowPaint(PaintEvent) returns (SendResponse);
 
   rpc WindowPaintInit(PaintEventInit) returns (SendResponse);
 
   rpc ValidateAuth(Validator) returns (User);
+}
+
+message AuthOTPRequest {
+  User user = 1;
+  string token = 2;
+}
+
+message Empty {};
+
+message RoomCheckRequest {
+  string room_id = 1;
 }
 
 message Validator {
@@ -42,23 +58,29 @@ message OTP {
 
 message AuthRequest {
   string phone = 1;
+  bool teach = 2;
 }
 
 message AuthRequestOtp {
   string phone = 1;
-  float otp = 2;
+  int64 code = 2;
 }
 
 message User {
-  string phone = 1;
-  bool teach = 2;
-  float code = 3;
-  string username = 4;
-  google.protobuf.Timestamp create_at = 5;
+  string phone = 1; // @gotags: cql:"phone"
+  bool teach = 2; // @gotags: cql:"teach"
+  int64 code = 3; // @gotags: cql:"code"
+  string username = 4; // @gotags: cql:"username"
+  int32 retry_otp = 5; // @gotags: cql:"retry_otp"
+  bool verified = 6; // @gotags: cql:"verified"
+  google.protobuf.Timestamp expire_otp = 7; // @gotags: cql:"expire_otp"
+  google.protobuf.Timestamp create_at = 8; // @gotags: cql:"create_at"
 }
 
 message Room {
-  string chat_room = 1;
+  string room_id = 1; // @gotags: cql:"room_id"
+  string chat_room = 2; // @gotags: cql:"chat_room"
+  repeated string users = 3; // @gotags: cql:"users"
 }
 
 message PaintEventInit {
@@ -79,10 +101,10 @@ message StreamRect {
 }
 
 message Assignment {
-  string id = 1;
-  string question = 2;
-  string chat_room = 3;
-  bool deleted = 4;
+  string id = 1; // @gotags: cql:"id"
+  string question = 2; // @gotags: cql:"question"
+  string chat_room = 3; // @gotags: cql:"chat_room"
+  bool deleted = 4; // @gotags: cql:"deleted"
 }
 
 message StreamTextEntries {
@@ -125,15 +147,17 @@ message QuestionsHistoryResponse {
 
 message SendResponse {
   bool success = 1;
+  optional string reason = 2;
+  optional string room_id = 3;
 }
 
 message ChatMessage {
-  string id = 1;
-  string chat_room = 2;
-  string username = 3;
-  string message = 4;
-  bool deleted = 5;
-  google.protobuf.Timestamp timestamp = 6;
+  string id = 1; // @gotags: cql:"id"
+  string chat_room = 2; // @gotags: cql:"chat_room"
+  string username = 3; // @gotags: cql:"username"
+  string message = 4; // @gotags: cql:"message"
+  bool deleted = 5; // @gotags: cql:"deleted"
+  google.protobuf.Timestamp timestamp = 6; // @gotags: cql:"timestamp"
 }
 
 message PaintEvent {
@@ -147,12 +171,12 @@ message PaintEvent {
 }
 
 message Question {
-  string id = 1;
-  string chat_room = 2;
-  string text = 3;
-  repeated string answers = 4;
-  bool deleted = 5;
-  google.protobuf.Timestamp timestamp = 6;
+  string id = 1; // @gotags: cql:"id"
+  string chat_room = 2; // @gotags: cql:"chat_room"
+  string text = 3; // @gotags: cql:"text"
+  repeated string answers = 4; // @gotags: cql:"answers"
+  bool deleted = 5; // @gotags: cql:"deleted"
+  google.protobuf.Timestamp timestamp = 6; // @gotags: cql:"timestamp"
 }
 
 message Subscribe {
