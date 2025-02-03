@@ -3,7 +3,9 @@
 pub struct RequestRoom {
     #[prost(message, optional, tag = "1")]
     pub room: ::core::option::Option<Room>,
-    #[prost(int32, optional, tag = "2")]
+    #[prost(bool, tag = "2")]
+    pub success: bool,
+    #[prost(int32, optional, tag = "3")]
     pub stats_code: ::core::option::Option<i32>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
