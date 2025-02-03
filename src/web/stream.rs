@@ -179,8 +179,8 @@ pub struct SendResponse {
     pub reason: ::core::option::Option<::prost::alloc::string::String>,
     #[prost(string, optional, tag = "3")]
     pub room_id: ::core::option::Option<::prost::alloc::string::String>,
-    #[prost(int64, optional, tag = "4")]
-    pub stats_code: ::core::option::Option<i64>,
+    #[prost(int32, optional, tag = "4")]
+    pub stats_code: ::core::option::Option<i32>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ChatMessage {
