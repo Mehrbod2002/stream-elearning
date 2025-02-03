@@ -149,6 +149,7 @@ message SendResponse {
   bool success = 1;
   optional string reason = 2;
   optional string room_id = 3;
+  optional int64 stats_code = 4;
 }
 
 message ChatMessage {
