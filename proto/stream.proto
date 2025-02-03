@@ -28,7 +28,7 @@ service StreamService {
 
   rpc CreateRoom(Empty) returns (SendResponse);
 
-  rpc RoomCheck(RoomCheckRequest) returns (Room);
+  rpc RoomCheck(RoomCheckRequest) returns (RequestRoom);
 
   rpc WindowPaint(PaintEvent) returns (SendResponse);
 
@@ -37,9 +37,16 @@ service StreamService {
   rpc ValidateAuth(Validator) returns (User);
 }
 
+message RequestRoom {
+  Room room = 1;
+  optional int32 stats_code = 2;
+}
+
 message AuthOTPRequest {
   User user = 1;
-  string token = 2;
+  bool Success = 2;
+  string token = 3;
+  optional int32 stats_code = 4;
 }
 
 message Empty {};
