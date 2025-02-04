@@ -40,7 +40,7 @@ service StreamService {
 }
 
 message RoomLeaveRequest {
-  User user = 1;
+  string user = 1;
   string room_id = 2;
 }
 
@@ -199,14 +199,15 @@ message Question {
 
 message Subscribe {
   oneof data {
-    ChatMessage chat_message = 1;
-    PaintEvent paint_event = 2;
-    Question question = 3;
-    PaintEventInit paint_event_init = 4;
-    Assignment assignment = 5;
+    Room room = 1;
+    ChatMessage chat_message = 2;
+    PaintEvent paint_event = 3;
+    Question question = 4;
+    PaintEventInit paint_event_init = 5;
+    Assignment assignment = 6;
   }
-  string chat_room = 6;
-  string username = 7;
+  string chat_room = 7;
+  string username = 8;
 }
 
 message SubscribeRequest {
